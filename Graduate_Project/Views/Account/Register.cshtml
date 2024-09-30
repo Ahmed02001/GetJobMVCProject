@@ -1,0 +1,54 @@
+﻿@model Graduate_Project.ViewModels.RegisterUserViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css" asp-append-version="true" />
+
+    </head>
+    <body>
+        <div class="container py-4 h-100">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration p-5 pb-0 " style="border-radius: 20px;">
+                    <div class="card-body  m-2 Maincolor">
+                        <h3 class="mb-4 pb-2 pb-md-0 " style="text-align: center; color: #6f6f6fd1;">انشاء حساب جديد</h3>
+                        <hr />
+                        <form asp-action="Register">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="UserName" class="control-label"></label>
+                                <input asp-for="UserName" class="form-control" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="انشاء حساب" class="btn  btn-custom w-100 btn-lg btn-style mt-4" />
+                            </div>
+                            <div>
+                                <a style="font-size: 15px; color: #6f6f6fd1; " asp-action="Login"> لديك حساب بالفعل</a>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

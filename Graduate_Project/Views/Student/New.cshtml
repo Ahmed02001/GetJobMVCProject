@@ -1,0 +1,202 @@
+﻿
+    @model StudentSkillsViewModel
+@{
+    ViewData["Title"] = "Select Your University, College";
+}
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewData["Title"]</title>
+        <link href="/css/style.css" rel="stylesheet" />
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+<body>
+    <div class="container py-4 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration p-5 pb-0 " style="border-radius: 20px;">
+                    <div class="card-body  m-2 Maincolor">
+                        <h3 class="mb-4 pb-2 pb-md-0 " style="text-align: center; color: #6f6f6fd1;">تسجيل الدخول</h3>
+                        <hr />
+                        <form asp-action="SubmitStudentData" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <!-- Hidden field for StudentId -->
+                            <input asp-for="StudentId" type="hidden" />
+
+                            <!-- Name Field -->
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label text-right d-block"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label text-right d-block" ></label>
+                                <input asp-for="Email" class="form-control" />
+                            </div>
+
+                            <!-- Phone Field -->
+                            <div class="form-group">
+                                <label asp-for="Phone" class="control-label text-right d-block p-1"></label>
+                                <input asp-for="Phone" class="form-control" />
+                            </div>
+
+                            <!-- University Field -->
+                            <div class="form-group">
+                                <label asp-for="University" class="control-label text-right d-block"></label>
+                                <select asp-for="University" asp-items="Model.UniversityOptions" class="form-control">
+                                    <option selected disabled>__ Select Your University __</option>
+                                </select>
+                            </div>
+
+                            <!-- College Field -->
+                            <div class="form-group">
+                                <label asp-for="College" class="control-label text-right d-block"></label>
+                                <select asp-for="College" asp-items="Model.CollegeOptions" class="form-control">
+                                    <option selected disabled>__ Select Your College __</option>
+                                </select>
+                            </div>
+
+                            <!-- Specialization Field -->
+                            <div class="form-group">
+                                <label asp-for="Specialization" class="control-label text-right d-block"></label>
+                                <select asp-for="Specialization" asp-items="Model.SpecializationOptions" class="form-control"> 
+                                    <option selected disabled>__ Select Your Specialization __</option>
+                                </select>
+                            </div>
+
+                            <!-- Degree Field -->
+                            <div class="form-group">
+                                <label asp-for="Degree" class="control-label text-right d-block"></label>
+                                <select asp-for="Degree" asp-items="Model.DegreeOptions" class="form-control">
+                                    <option selected disabled>__ Select Your Degree __</option>
+                                </select>
+                            </div>
+
+                            <!-- Graduation Year Field -->
+                            <div class="form-group">
+                                <label asp-for="GraduationYear" class="control-label text-right d-block"></label>
+                                <input asp-for="GraduationYear" class="form-control" />
+                            </div>
+                            <!-- Skill search input -->
+                            <div class="form-group">
+                                <label for="skillInput" class="control-label text-right d-block">اضافه مهارات</label>
+                                <input type="text" id="skillInput" class="form-control " placeholder="أدخل 4 مهارات كحد اقصي" />
+                                <ul id="skillsList" class="list-group mt-2" style="display: none;"></ul>
+                                
+                            </div>
+
+                            <!-- Selected skills container -->
+                            <div id="selectedSkillsContainer" class="form-group">
+                                <!-- Dynamic hidden fields will be appended here -->
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="تسجيل البيانات" class="btn  btn-custom w-100 btn-lg btn-style" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            let selectedSkills = [];
+            let selectedSkillsCount = 0;
+
+            // Function to add skill tag
+            function addSkillTag(skill) {
+                if (!selectedSkills.some(s => s.id === skill.id)) {
+                    selectedSkills.push(skill);
+
+                    // Append skill badge
+                    $("#selectedSkillsContainer").append(`
+                                        <span class="badge badge-info skill-tag" data-id="${skill.id}">
+                                            ${skill.skillName}
+                                            <button type="button" class="btn btn-sm btn-danger ml-2 remove-skill">x</button>
+                                        </span>
+                                    `);
+
+                    // Create hidden fields for each selected skill
+                    $("<input>").attr({
+                        type: "hidden",
+                        name: `SelectedSkills[${selectedSkills.length - 1}].Id`,
+                        value: skill.id
+                    }).appendTo("#selectedSkillsContainer");
+
+                    $("<input>").attr({
+                        type: "hidden",
+                        name: `SelectedSkills[${selectedSkills.length - 1}].SkillName`,
+                        value: skill.skillName
+                    }).appendTo("#selectedSkillsContainer");
+                }
+            }
+
+            // Handle input for searching skills
+            $("#skillInput").on("input", function () {
+                let term = $(this).val();
+
+                if (term.length >= 1) {
+                    // AJAX call to search for skills (adjust the URL)
+                    $.ajax({
+                        url: '@Url.Action("SearchSkills", "Student")',
+                        data: { term: term },
+                        success: function (data) {
+                            $("#skillsList").empty().show();
+
+                            if (data.length > 0) {
+                                $.each(data, function (index, skill) {
+                                    $("#skillsList").append(`<li class="list-group-item skill-item" data-id="${skill.id}">${skill.skillName}</li>`);
+                                });
+                            } else {
+                                $("#skillsList").append('<li class="list-group-item">No skills found</li>');
+                            }
+                        }
+                    });
+                } else {
+                    $("#skillsList").hide();
+                }
+            });
+
+            // Handle skill selection
+            $(document).on("click", ".skill-item", function () {
+                let skillName = $(this).text();
+                let skillId = $(this).data('id');
+
+                let selectedSkill = { id: skillId, skillName: skillName };
+                addSkillTag(selectedSkill);
+
+                // Hide skills list and clear input
+                $("#skillsList").hide();
+                $("#skillInput").val('');
+            });
+
+            // Handle removing a selected skill
+            $(document).on("click", ".remove-skill", function () {
+                let skillId = $(this).closest(".skill-tag").data('id');
+                selectedSkills = selectedSkills.filter(s => s.id !== skillId);
+                $(this).closest(".skill-tag").remove();
+
+                // Remove hidden input fields for the removed skill
+                $(`input[value="${skillId}"]`).remove();
+            });
+        });
+
+        
+    </script>
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,70 @@
+﻿
+<html lang="ar" dir="rtl" >
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Graduate_Project</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <header style="height: 70vh; box-shadow: 7px 32px 30px #12a191; background:linear-gradient(to bottom right, #0d6d62, #1dab9b);">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="/images/logo1.png" alt="Alternate Text" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <img style="width:40px;" src="/images/icon.png" alt="Alternate Text" />
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                    </ul>
+                    <ul class="navbar-nav" style="padding-right: 20px;padding-left: 0;text-align: right;">
+                        @if(User.Identity!.IsAuthenticated == true && !User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark hav" asp-area="" asp-controller="Student" asp-action="Details">تفاصيل</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated == false)
+                        {
+                            <li class="nav-item" >
+                                <a class="nav-link text-dark hav" asp-area="" asp-controller="Account" asp-action="Register">انشاء حساب جديد</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark hav" asp-area="" asp-controller="Account" asp-action="Login">تسجيل الدخول</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark hav" asp-area=""> مرحبا @User.Identity.Name</a>
+                            </li>
+                            @if (!User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark hav" asp-area="" asp-controller="Account" asp-action="Logout">تسجيل الخروج</a>
+                                </li> 
+                            }
+                                            
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container; position-absolute; top:-600">
+            @RenderBody()
+        </div>
+    </header>
+    
+    
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

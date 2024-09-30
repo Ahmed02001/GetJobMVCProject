@@ -1,0 +1,61 @@
+﻿
+:root {
+    
+
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings: "HEXP";
+}
+
+.noto-kufi-arabic{
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+label {
+    margin: 15px 0 7px 0;
+    color: #979797d1;
+}
+
+.Maincolor {
+    background-color: #e8fbf3;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #e8fbf3 !important;
+    background-clip: border-box;
+    border: 1px solid #e8fbf3;
+    border-radius: 4rem;
+}
+input, select {
+    border: 1px solid #1dab9b !important;
+    border-radius: 20px !important;
+}
+
+
+.btn-style {
+    border: 1px solid #1dab9b !important;
+    margin-top: 10px;
+    border-radius: 25px !important;
+}
+
+.btn-style:hover {
+    background-color: #1dab9b;
+        
+}
+
+.form-control{
+    border-radius: 20px;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 -0.9rem white, 0 0 0 0.05rem #1dab9b;
+}

@@ -1,0 +1,106 @@
+html {
+
+    font-size: 14px;
+}
+
+
+.noto-kufi-arabic{
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+:root {
+    font-family: "Noto Kufi Arabic", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings: "HEXP";
+    margin: 0;
+    padding: 0;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    background-color: #8b6b0a;
+    border-radius: 20px;
+}
+.navbar-toggler-icon:hover {
+    background-color: #574e32;
+}
+
+.navbar-nav .nav-link {
+    padding-right: 15px !important;
+    padding-left: 15px;
+    margin: 5px;
+}
+.navbar-nav {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    list-style: none;
+}
+a img {
+    width: 160px;
+    height: 100px;
+    border-radius: 20px;
+    margin: 10px 10px 0 10px;
+    background-color: azure
+}
+
+a .anc_hv:hover {
+    color: #1dab9b;
+}
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+
+label{
+    font-weight : 600;
+}
+p {
+   font-size: 12px;
+   margin: 3px 7px;
+   text-align:end;
+   font-weight: 500;
+   font-size: 15px;
+}
+.hav {
+    margin: 0 10px;
+    color: #201f1e !important;
+    font-weight: 700;
+    padding: 10px;
+    background-color: #e8fbf3;
+    border: 1px solid #aab1b7;
+    border-radius: 15px;
+}
+
+
+    .hav:hover {
+        background-color: #d5d5d5;
+        border-radius: 15px;
+        border-color: #e8fbf3;
+    }
+
+input[type="tel" i] {
+    direction: rtl;
+    padding-block: 1px;
+    padding-inline: 10px;
+}

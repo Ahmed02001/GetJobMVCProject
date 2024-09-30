@@ -1,0 +1,154 @@
+﻿@{
+    Layout = "_layout";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - لوحة إدارة</title>
+    <link href="/css/AdminStyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Default active state for all items */
+        .active {
+            background-color: #4ba5d6; /* Active background color */
+            color: white;
+        }
+
+        /* Specific style for لوحة التحكم when active */
+        .control-panel-active {
+            background-color: #4ba5d6; /* Active background for لوحة التحكم */
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-2">
+        <!-- Header with toggle button for sidebar -->
+        <header class="row bg-light">
+            <div class="col-md-12 d-flex justify-content-between align-items-center">
+                <button class="btn btn-primary d-md-none" id="sidebarToggle"><h1 class="text-center">صفحه الأدمن</h1></button>
+                
+            </div>
+        </header>
+
+        <div class="row" style="height: auto; min-height: 504px;padding:0">
+            <!-- Sidebar -->
+            <nav class="col-md-3 d-none d-md-block bg-light sidebar" id="sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column p-0">
+                        <li class="nav-item d-flex StItem control-panel-active" id="controlPanelLink" data-url="@Url.Action("Index", "Admin")">
+                            <!-- "لوحة التحكم" has the class control-panel-active by default -->
+                            <a class="nav-link" href="@Url.Action("Index", "Admin")" style="padding: 10px;color: black;font-weight: 600;">
+                                <i class="fas fa-tachometer-alt" style="font-weight: 900;color: red;margin-left: 10px; font-size: 18px;"></i>
+                                <span>لوحة التحكم</span>
+                            </a>
+                        </li>
+                        <li class="nav-item d-flex StItem" data-url="@Url.Action("UserReport", "Admin")">
+                            <a class="nav-link" href="@Url.Action("UserReport", "Admin")" style="padding: 10px;color: black;font-weight: 600;">
+                                <i class="fas fa-users" style="font-weight: 900;color: maroon;margin-left: 10px; font-size: 18px;"></i>
+                                <span>المستخدمون</span>
+                            </a>
+                        </li>
+                        <li class="nav-item d-flex StItem" data-url="@Url.Action("AddAdmin", "Account")">
+                            <a class="nav-link" href="@Url.Action("AddAdmin", "Account")" style="padding: 10px;color: black;font-weight: 600;">
+                                <i class='fas fa-user-plus' style="font-weight: 900;color: purple;margin-left: 10px; font-size: 18px;"></i>
+                                <span>اضافة حساب</span>
+                            </a>
+                        </li>
+                        <li class="nav-item d-flex StItem" data-url="@Url.Action("Logout", "Account")">
+                            <a class="nav-link" href="@Url.Action("Logout", "Account")" style="padding: 10px;color: black;font-weight: 600;">
+                                <i class="fas fa-sign-out-alt" style="font-weight: 900;color: mediumblue;margin-left: 10px; font-size: 18px;"></i>
+                                <span>تسجيل الخروج</span>
+                            </a>
+                            @* <form asp-action="Logout" asp-controller="Account" method="get" onsubmit="refreshPage(event)" style="padding: 10px;color: black;font-weight: 600;">
+                                <i class="fas fa-sign-out-alt" style="font-weight: 900;color: mediumblue;margin-left: 10px; font-size: 18px;"></i>
+                                <span>تسجيل الخروج</span>
+                            </form> *@
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-9 bor-st main" style="background-color:#a19f9d" id="mainContent">
+                @RenderSection("MainContent", required: false)
+            </main>
+        </div>
+    </div>
+
+   @*  <script>
+        function refreshPage() {
+            // This will refresh the page once the form is submitted
+            setTimeout(function () {
+                window.location.reload();
+            }, 100); // Adjust the delay if necessary
+        };
+
+        $(document).ready(function () {
+            // Sidebar toggle for smaller screens
+            $('#sidebarToggle').on('click', function () {
+                $('#sidebar').toggleClass('d-none');
+                $('#sidebar').toggleClass('d-md-block');
+            });
+
+            // On nav item click, update background color for the selected item
+            $('.nav-item').on('click', function (e) {
+                e.preventDefault();
+
+                // Remove 'active' and 'control-panel-active' classes from all nav links
+                $('.nav-item').removeClass('active control-panel-active');
+
+                // If it's the control panel, apply the special red background
+                if ($(this).attr('id') === 'controlPanelLink') {
+                    $(this).addClass('control-panel-active');
+                } else {
+                    // Apply the default active background for other items
+                    $(this).addClass('active');
+                }
+
+                var url = $(this).data('url');  // Get data-url attribute
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#mainContent').html($(data).find('#mainContent').html());
+                        window.history.pushState({}, '', url); // Update the URL without refreshing
+                    },
+                    error: function () {
+                        alert('Error loading content.');
+                    }
+                });
+            });
+
+            // AJAX content load on back/forward navigation
+            window.onpopstate = function () {
+                var url = window.location.pathname;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#mainContent').html($(data).find('#mainContent').html());
+                    },
+                    error: function () {
+                        alert('Error loading content.');
+                    }
+                });
+            };
+        });
+
+        
+
+    </script> *@
+</body>
+</html>

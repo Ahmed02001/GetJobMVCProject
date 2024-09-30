@@ -1,0 +1,22 @@
+﻿.table-container {
+    width: 100%;
+    overflow-x: auto; /* Enables horizontal scrolling */
+}
+
+.responsive-table {
+    width: 100%; /* Full width by default */
+    border-collapse: collapse;
+}
+
+    .responsive-table th, .responsive-table td {
+        padding: 8px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+/* Media query to trigger fixed width when screen width is 1020px or less */
+@media (max-width: 1320px) {
+    .responsive-table {
+        width: 1320px; /* Fixes the table width */
+    }
+}

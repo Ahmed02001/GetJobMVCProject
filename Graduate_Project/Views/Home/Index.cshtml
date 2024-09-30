@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="ar"> <!-- Arabic language declaration -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport meta tag -->
+    <title>Arabic Typewriter Effect</title>
+    <link href="/css/index.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="text" id="typewriter-text"></div>
+        <img src="/images/job.png" alt="Alternate Text" />
+    </div>
+
+<script>
+        // JavaScript Typewriter Effect in Arabic
+        const textElement = document.getElementById('typewriter-text');
+        const textToType = [
+            { text: "مرحبا بك عزيزى المتسخدم", color: "#ffc107" }, // السطر الأول
+            { text: "يساعدك هذا الموقع ", color: "#ffc107" }, // السطر الثاني
+            { text: "على معرفة وظيفتك", color: "#ffc107" }, // السطر الثالث
+            { text: "باستخدام مهاراتك", color: "#ffc107" } // السطر الثالث
+        ];
+
+        let index = 0; // لتتبع السطر الحالي
+        let charIndex = 0; // لتتبع حرف النص الحالي
+        let isDeleting = false; // حالة الحذف
+        let typingSpeed = 150; // سرعة الكتابة الافتراضية
+
+        function typeText() {
+            // تحديد النص الحالي والكلمات
+            const currentText = textToType[index].text;
+            const currentColor = textToType[index].color;
+
+            // التحكم في الكتابة
+            if (isDeleting) {
+                charIndex--; // إذا كان في وضع الحذف
+            } else {
+                charIndex++; // إذا كان في وضع الكتابة
+            }
+
+            // تطبيق اللون على النص
+            textElement.innerHTML = `<span style="color: ${currentColor}">${currentText.substring(0, charIndex)}</span>`;
+
+            // تحديد سرعة الكتابة
+            let typingDelay = typingSpeed;
+
+            // إبطاء الكتابة عند انتهاء الجملة
+            if (!isDeleting && charIndex === currentText.length) {
+                typingDelay = 1000; // توقف لمدة 1 ثانية بعد انتهاء الكتابة
+                isDeleting = true; // بدء عملية الحذف
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false; // العودة للكتابة
+                index = (index + 1) % textToType.length; // الانتقال إلى السطر التالي
+                typingDelay = 500; // توقف قبل بدء السطر الجديد
+            }
+
+            setTimeout(typeText, typingDelay);
+        }
+
+        // بدء تأثير الكتابة عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            typeText();
+        });
+
+</script>
+
+</body>
+</html>

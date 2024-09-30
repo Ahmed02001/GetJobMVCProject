@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "_AdminLayout";
+}
+
+@section MainContent {
+
+
+    <style>
+        .txtstyle {
+            text-align:center;
+            font-weight: 700;
+        }
+
+        .txtstyle.h1{
+
+            width:50px;
+
+            
+        }
+    </style>
+    <div class="row m-4">
+        <!-- First Column Group -->
+        <div class="col-xl-3 col-md-6 mb-4" >
+            <div class="card  text-white mx-2 txtstyle" style="background-color:#4ba5d6" title="عدد المستخدمين">
+                <div class="card-body"><i class='fas fa-users' style='font-size:55px;color:purple'></i></div>
+                <h1>@ViewBag.UserCount</h1>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4" data-url="@Url.Action("StudentDetails", "Admin")">
+            <div class="card  text-white mx-2 txtstyle" style="background-color:#f6c543" title="عرض كل الطلاب">
+                <div class="card-body"><i class='fas fa-user-graduate' style='font-size:48px;color:midnightblue'></i></div>
+                <a class="nav-link" asp-action="StudentDetails" asp-controller="Admin" style="padding: 18px; color: teal; font-weight:900; font-size20px">عرض كل الطلاب</a>
+            </div>
+        </div>
+
+        <!-- Second Column Group -->
+        <div class="col-xl-3 col-md-6 mb-4" data-url="@Url.Action("SearchByUserName", "Admin")">
+            <div class="card  text-white mx-2 txtstyle" style="background-color:#5dcb8e">
+                <div class="card-body"><i class="fa fa-search" style="font-size:48px;color:red"></i></div>
+               <a class="nav-link" asp-action="SearchByUserName" asp-controller="Admin" style="padding: 18px; color: teal; font-weight:900; font-size:20px">بحث باسم المستخدم</a>
+
+               
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card  text-white mx-2 txtstyle" style="background-color:#ec6464" title="عدد الطلاب"> 
+                <div class="card-body"><i class='fas fa-users' style='font-size:55px;color:purple'></i></div>
+                <h1>@ViewBag.StudentCount</h1>
+            </div>
+        </div>
+    </div>
+
+
+
+
+}

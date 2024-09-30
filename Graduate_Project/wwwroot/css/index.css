@@ -1,0 +1,75 @@
+﻿/* Center the container in the middle of the page */
+body, html {
+    height: 100%;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0; /* Light background color */
+    font-family: "Noto Kufi Arabic", sans-serif;
+}
+
+/* Container for image and text */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+img {
+    width: 505px; /* Default width for larger screens */
+    
+    
+}
+
+/* Arabic text style */
+.text {
+    margin-top: 50px;
+    font-size: 30px;
+    font-family: "Noto Kufi Arabic", sans-serif; /* Arabic-friendly font */
+    direction: rtl; /* Right-to-left text direction */
+    color: black;
+    border: none;
+    background: none;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid black;
+    animation: blinkCursor 0.7s steps(40) infinite normal;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* Typewriter cursor blink */
+@keyframes blinkCursor {
+    0% {
+        border-right-color: black;
+    }
+
+    50% {
+        border-right-color: transparent;
+    }
+
+    100% {
+        border-right-color: black;
+    }
+}
+
+
+/* Continuous move up and down animation for the image */
+@keyframes moveUpDown {
+    0%, 100% {
+        transform: translateY(0); /* Start and end at the same position */
+    }
+
+    50% {
+        transform: translateY(-10px); /* Move up by 10px at the middle */
+    }
+}
+
+/* Media query for screens smaller than 515px */
+@media (max-width: 515px) {
+    img {
+        width: 335px; /* Set image width to 335px on small screens */
+    }
+    
+}

@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Job Recommendation";
+}
+<head>
+    <style>
+        h3 span{
+            background-color: #37b3b3;
+            padding: 10px;
+            border-radius: 16px;
+            font-size: 20px;
+            color: #000;
+
+        }
+        .custom-link {
+            color: #18988a;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 700;
+            border: 1px solid #117c70;
+            padding: 10px 30px;
+            border-radius: 30px;
+            
+
+        }
+        h5{
+            text-align: center;
+            font-weight: lighter;
+            font-size: 15px;
+            margin: 20px;
+        }
+
+        .custom-link:hover {
+            color: darkblue;
+            background-color: #18988a;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container py-4 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration p-5" style="border-radius: 20px; padding-bottom:0 !important; background-color:azure">
+                    <div class="card-body m-2 Maincolor">
+                        <h3 class="mb-4 pb-2 pb-md-0" style="text-align: center;"><span>الوظيفة المتوقعة</span></h3>
+                        <hr />
+                        @if (ViewBag.PredictedJob != null)
+                        {
+                            <h5 style="text-align: center;">Predicted Job</h5>
+                            <h3 style="text-align: center;font-size: 30px; color: crimson;">@ViewBag.PredictedJob</h3>
+                        }
+                        
+                        else
+                        {
+                            <p style="text-align:center">لا يوجد وظيفة متاحه لك</p>
+                        }
+                        
+                    </div>
+                    <div style="text-align: center;text-align: center; margin-top: 20px; margin-bottom: 20px;">
+                        <a asp-controller="Student" asp-action="New" class="custom-link"> OK</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
